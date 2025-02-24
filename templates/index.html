@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ART Coverage Dashboard</title>
+</head>
+<body>
+    <h1>ART Coverage Dashboard</h1>
+    <h2>Top 15 Countries by ART Coverage</h2>
+    <img src="{{ url_for('static', filename='barplot.png') }}" alt="Bar Plot">
+    <h2>Distribution of ART Coverage</h2>
+    <img src="{{ url_for('static', filename='histplot.png') }}" alt="Histogram">
+    <h2>ART Coverage vs. Period (2015-2024)</h2>
+    <img src="{{ url_for('static', filename='scatterplot.png') }}" alt="Scatter Plot">
+    <h2>ART Coverage Trends in High-Prevalence Countries</h2>
+    <img src="{{ url_for('static', filename='lineplot.png') }}" alt="Line Plot">
+    <h2>ART Coverage Map</h2>
+    <iframe src="{{ url_for('static', filename='art_coverage_map.html') }}" width="100%" height="600"></iframe>
+</body>
+</html>
