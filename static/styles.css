@@ -137,6 +137,34 @@ h2 {
     font-weight: 700;
 }
 
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    margin-top: 1rem;
+}
+
+.button-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 46px;
+    padding: 0.8rem 1rem;
+    border-radius: 14px;
+    background: linear-gradient(135deg, var(--accent), #127b88);
+    color: white;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 12px 28px rgba(11, 110, 105, 0.18);
+}
+
+.button-link-secondary {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--accent-deep);
+    border: 1px solid rgba(18, 56, 74, 0.12);
+    box-shadow: none;
+}
+
 .controls,
 .methodology {
     margin-top: 1.35rem;
@@ -381,6 +409,10 @@ code {
 
     .hero-text {
         font-size: 1rem;
+    }
+
+    .hero-actions {
+        flex-direction: column;
     }
 
     .card-heading {

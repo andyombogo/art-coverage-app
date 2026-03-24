@@ -4,3 +4,14 @@ __pycache__/
 .pytest_cache/
 pytest-cache-files-*/
 .DS_Store
+ne_110m_*
+art_coverage_map.html
+Figure_1.png
+data/processed_art_coverage.csv/
+static/barplot.png
+static/histplot.png
+static/lineplot.png
+static/scatterplot.png
+static/art_coverage_map.html
+system.properties
+VERSION

@@ -39,6 +39,10 @@
                 <p class="panel-year">{{ selected_year }}</p>
                 <p class="panel-region">{{ selected_region }}</p>
                 <p class="panel-detail">Latest full-year average: {{ dataset_summary.latest_average }}%</p>
+                <div class="hero-actions">
+                    <a class="button-link" href="{{ url_for('download_current_view', year=selected_year, region=selected_region) }}">Download current view</a>
+                    <a class="button-link button-link-secondary" href="{{ url_for('summary_api', year=selected_year, region=selected_region) }}" target="_blank" rel="noreferrer">Open JSON summary</a>
+                </div>
             </div>
         </header>
 
@@ -104,28 +108,28 @@
         </section>
 
         <section class="chart-grid">
-            <article class="card chart-card chart-card-wide">
+            <article class="card chart-card chart-card-wide" id="coverage-map">
                 <div class="card-heading">
                     <h2>Coverage map</h2>
                     <p>Country estimates for the selected year and region.</p>
                 </div>
                 <div class="chart-frame">{{ map_chart|safe }}</div>
             </article>
-            <article class="card chart-card">
+            <article class="card chart-card" id="leading-countries">
                 <div class="card-heading">
                     <h2>Leading countries</h2>
                     <p>Highest ART coverage values in the current slice.</p>
                 </div>
                 <div class="chart-frame">{{ leaders_chart|safe }}</div>
             </article>
-            <article class="card chart-card chart-card-wide">
+            <article class="card chart-card chart-card-wide" id="regional-trends">
                 <div class="card-heading">
                     <h2>Regional trends over time</h2>
                     <p>Track average coverage since {{ dataset_summary.start_year }}.</p>
                 </div>
                 <div class="chart-frame">{{ trend_chart|safe }}</div>
             </article>
-            <article class="card chart-card">
+            <article class="card chart-card" id="year-over-year-movers">
                 <div class="card-heading">
                     <h2>Year-over-year movers</h2>
                     <p>Largest gains and declines with comparable country records.</p>
@@ -135,7 +139,7 @@
         </section>
 
         <section class="table-grid">
-            <article class="card table-card">
+            <article class="card table-card" id="top-performers">
                 <div class="card-heading">
                     <h2>Top performers</h2>
                     <p>Countries with the strongest reported coverage.</p>
@@ -163,7 +167,7 @@
                     </table>
                 </div>
             </article>
-            <article class="card table-card">
+            <article class="card table-card" id="countries-needing-attention">
                 <div class="card-heading">
                     <h2>Countries needing attention</h2>
                     <p>Lower-coverage geographies in the current selection.</p>

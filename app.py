@@ -1,8 +1,9 @@
 from __future__ import annotations
 
+import io
 import os
 
-from flask import Flask, jsonify, render_template, request
+from flask import Flask, Response, jsonify, render_template, request
 
 from dashboard.charts import chart_to_html
 from dashboard.data import (
@@ -30,8 +31,7 @@ from dashboard.visuals import (
 def create_app() -> Flask:
     app = Flask(__name__)
 
-    @app.route("/")
-    def index() -> str:
+    def resolve_filters() -> tuple[object, dict[str, object], int, str]:
         dataset = load_art_coverage_data()
         filter_options = get_filter_options(dataset)
 
@@ -43,6 +43,11 @@ def create_app() -> Flask:
         if region not in filter_options["regions"]:
             region = "All"
 
+        return dataset, filter_options, year, region
+
+    @app.route("/")
+    def index() -> str:
+        dataset, filter_options, year, region = resolve_filters()
         snapshot = build_snapshot(dataset, year=year, region=region)
         prior_year = filter_options["previous_year_lookup"].get(year)
         year_over_year = build_year_over_year_changes(dataset, year=year, region=region)
@@ -73,6 +78,64 @@ def create_app() -> Flask:
         }
 
         return render_template("index.html", **context)
+
+    @app.route("/api/summary")
+    def summary_api() -> tuple[object, int]:
+        dataset, filter_options, year, region = resolve_filters()
+        snapshot = build_snapshot(dataset, year=year, region=region)
+        prior_year = filter_options["previous_year_lookup"].get(year)
+        year_over_year = build_year_over_year_changes(dataset, year=year, region=region)
+
+        payload = {
+            "status": "ok",
+            "year": year,
+            "region": region,
+            "filters": {
+                "years": filter_options["years"],
+                "regions": filter_options["regions"],
+            },
+            "summary": describe_dataset(dataset),
+            "metrics": build_metric_cards(snapshot, year_over_year, prior_year),
+            "insights": build_insights(snapshot, year_over_year, dataset, year, region, prior_year),
+            "top_locations": build_rankings(snapshot, ascending=False),
+            "bottom_locations": build_rankings(snapshot, ascending=True),
+        }
+        return jsonify(payload), 200
+
+    @app.route("/download/current-view.csv")
+    def download_current_view() -> Response:
+        dataset, _, year, region = resolve_filters()
+        snapshot = build_snapshot(dataset, year=year, region=region)
+
+        export_columns = [
+            "Location",
+            "ParentLocation",
+            "Period",
+            "coverage_value",
+            "coverage_low",
+            "coverage_high",
+            "uses_midpoint_estimate",
+            "DateModified",
+        ]
+        export_frame = snapshot[export_columns].rename(
+            columns={
+                "ParentLocation": "Region",
+                "coverage_value": "Coverage",
+                "coverage_low": "CoverageLow",
+                "coverage_high": "CoverageHigh",
+                "uses_midpoint_estimate": "UsesMidpointEstimate",
+            }
+        )
+
+        buffer = io.StringIO()
+        export_frame.to_csv(buffer, index=False)
+        filename = f"art-coverage-{region.lower().replace(' ', '-')}-{year}.csv"
+
+        return Response(
+            buffer.getvalue(),
+            mimetype="text/csv",
+            headers={"Content-Disposition": f'attachment; filename="{filename}"'},
+        )
 
     @app.route("/health")
     def health() -> tuple[object, int]:

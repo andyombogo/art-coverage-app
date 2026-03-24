@@ -52,3 +52,26 @@ def test_health_endpoint_returns_ok():
     assert response.status_code == 200
     payload = response.get_json()
     assert payload["status"] == "ok"
+
+
+def test_summary_api_returns_selected_filters():
+    client = app.test_client()
+    response = client.get("/api/summary?year=2023&region=Africa")
+
+    assert response.status_code == 200
+    payload = response.get_json()
+    assert payload["status"] == "ok"
+    assert payload["year"] == 2023
+    assert payload["region"] == "Africa"
+    assert payload["top_locations"]
+
+
+def test_download_current_view_returns_csv():
+    client = app.test_client()
+    response = client.get("/download/current-view.csv?year=2023&region=Africa")
+
+    assert response.status_code == 200
+    assert response.mimetype == "text/csv"
+    assert "attachment; filename=" in response.headers["Content-Disposition"]
+    body = response.get_data(as_text=True)
+    assert "Location,Region,Period,Coverage" in body
