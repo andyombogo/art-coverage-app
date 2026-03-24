@@ -1,7 +1,4 @@
-Flask
-pandas
-matplotlib
-seaborn
-geopandas
-folium
-pyspark
+Flask>=3.0,<4.0
+gunicorn>=22.0,<24.0
+pandas>=2.2,<3.0
+plotly>=5.24,<7.0

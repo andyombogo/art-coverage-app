@@ -1,12 +1,55 @@
-# WHO ART Coverage Analysis
+# WHO ART Coverage Dashboard
 
-This project analyzes the WHO ART coverage data using PySpark and visualizes the results using various plotting libraries. The project is deployed as a web application using Flask and hosted on Heroku.
+An intuitive Flask dashboard for exploring WHO antiretroviral therapy (ART) coverage estimates by country, region, and year.
 
-## Installation
+## Why this repo is stronger now
 
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/andyombogo/art-coverage-app.git
+- Replaced hard-coded local file paths with a portable data pipeline that reads the checked-in WHO CSV.
+- Removed Spark and GeoPandas from the web request path so the app is lighter, faster, and easier to deploy.
+- Upgraded the UI from a static image page to an interactive dashboard with filters, KPI cards, a choropleth map, trend lines, movers, and ranked tables.
+- Added a health endpoint, Render blueprint, cleaner deployment commands, and test coverage for core app behavior.
+
+## Dashboard features
+
+- Year and region filters for focused exploration.
+- Country-level coverage map using ISO-3 country codes from the WHO dataset.
+- Regional trend tracking from 2000 to 2023.
+- Year-over-year change view for countries with comparable records.
+- Tables for highest- and lowest-coverage geographies.
+- Methodology panel that explains how missing point estimates are handled.
+
+## Local setup
+
+```bash
+python -m venv .venv
+.venv\Scripts\activate
+pip install -r requirements.txt
+python app.py
+```
+
+Open `http://127.0.0.1:5000/`.
+
+## Deploy on Render
+
+This repo includes `render.yaml` so you can deploy it as a Render Blueprint.
+
+Manual Render settings if you need them:
+
+- Build command: `pip install -r requirements.txt`
+- Start command: `gunicorn app:app`
+- Health check path: `/health`
+
+## Project structure
+
+- `app.py`: Flask entrypoint and routes
+- `dashboard/data.py`: data loading and dashboard summaries
+- `dashboard/visuals.py`: Plotly figure builders
+- `templates/index.html`: dashboard layout
+- `static/styles.css`: app styling
+
+## Data note
+
+The checked-in source file spans 2000 through 2023 and contains 4,656 WHO rows. After filtering to country observations with usable coverage values, the dashboard works with 3,407 records across 146 countries. Some rows publish only low and high intervals without a central estimate; the dashboard uses the midpoint of that interval for comparative views while still exposing the full range in tables and map hovers.
 
 
 

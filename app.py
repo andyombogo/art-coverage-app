@@ -1,136 +1,98 @@
-from flask import Flask, render_template
+from __future__ import annotations
+
 import os
-import pandas as pd
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
-import seaborn as sns
-import geopandas as gpd
-import folium
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import avg
 
-app = Flask(__name__)
+from flask import Flask, jsonify, render_template, request
 
-@app.route('/')
-def index():
-    # Initialize Spark Session
-    spark = SparkSession.builder \
-        .appName("WHO ART Coverage Analysis") \
-        .getOrCreate()
+from dashboard.charts import chart_to_html
+from dashboard.data import (
+    DATA_PATH,
+    build_insights,
+    build_metric_cards,
+    build_rankings,
+    build_snapshot,
+    build_year_over_year_changes,
+    describe_dataset,
+    get_filter_options,
+    get_latest_period,
+    get_time_series,
+    load_art_coverage_data,
+    summarize_regions,
+)
+from dashboard.visuals import (
+    build_change_chart,
+    build_coverage_map,
+    build_region_trends_chart,
+    build_top_locations_chart,
+)
 
-    # Load the CSV data
-    csv_path = "C:/Users/user/Downloads/OneDrive/Desktop/Pyspark/data.csv"
-    if not os.path.exists(csv_path):
-        return "Error: CSV file not found at path: {}".format(csv_path)
-    else:
-        df = spark.read.csv(csv_path, header=True, inferSchema=True)
 
-        # Filter and select relevant columns
-        df_filtered = df.select("Location", "Period", "FactValueNumeric")
+def create_app() -> Flask:
+    app = Flask(__name__)
 
-        # Calculate average ART coverage by location
-        df_avg = df_filtered.groupBy("Location").agg(avg("FactValueNumeric").alias("Avg_ART_Coverage"))
+    @app.route("/")
+    def index() -> str:
+        dataset = load_art_coverage_data()
+        filter_options = get_filter_options(dataset)
 
-        # Convert to Pandas DataFrame
-        df_pandas = df_avg.toPandas()
-        df_pandas["Avg_ART_Coverage"] = pd.to_numeric(df_pandas["Avg_ART_Coverage"], errors="coerce")
-        df_pandas = df_pandas.dropna()
-        df_pandas = df_pandas.sort_values(by="Avg_ART_Coverage", ascending=False)
+        year = request.args.get("year", type=int) or filter_options["default_year"]
+        if year not in filter_options["years"]:
+            year = filter_options["default_year"]
 
-        # Plot the data
-        plt.figure(figsize=(12, 6))
-        sns.barplot(x=df_pandas["Location"][:15], y=df_pandas["Avg_ART_Coverage"][:15], palette="viridis", hue=df_pandas["Location"][:15], dodge=False)
-        plt.xticks(rotation=45, ha="right")
-        plt.xlabel("Country")
-        plt.ylabel("Avg ART Coverage (%)")
-        plt.title("Top 15 Countries by ART Coverage")
-        plt.legend([],[], frameon=False)  # Hide the legend
-        plt.savefig('static/barplot.png')
-        plt.close()
+        region = request.args.get("region", default="All", type=str) or "All"
+        if region not in filter_options["regions"]:
+            region = "All"
 
-        # Additional Plot: Distribution of ART Coverage
-        plt.figure(figsize=(10, 5))
-        sns.histplot(df_pandas["Avg_ART_Coverage"], bins=20, kde=True, color="blue")
-        plt.xlabel("Avg ART Coverage (%)")
-        plt.ylabel("Frequency")
-        plt.title("Distribution of ART Coverage")
-        plt.savefig('static/histplot.png')
-        plt.close()
+        snapshot = build_snapshot(dataset, year=year, region=region)
+        prior_year = filter_options["previous_year_lookup"].get(year)
+        year_over_year = build_year_over_year_changes(dataset, year=year, region=region)
 
-        # Scatter Plot: ART Coverage vs. Period (2015-2024)
-        df_filtered_pandas = df_filtered.toPandas()
-        df_filtered_pandas["Period"] = pd.to_datetime(df_filtered_pandas["Period"], format="%Y")
-        df_filtered_pandas = df_filtered_pandas[(df_filtered_pandas["Period"].dt.year >= 2015) & (df_filtered_pandas["Period"].dt.year <= 2024)]
-        
-        plt.figure(figsize=(12, 6))
-        sns.scatterplot(x="Period", y="FactValueNumeric", data=df_filtered_pandas)
-        plt.xticks(rotation=45)
-        plt.xlabel("Year")
-        plt.ylabel("ART Coverage (%)")
-        plt.title("ART Coverage vs. Period (2015-2024)")
-        plt.savefig('static/scatterplot.png')
-        plt.close()
+        context = {
+            "dataset_summary": describe_dataset(dataset),
+            "filter_options": filter_options,
+            "selected_year": year,
+            "selected_region": region,
+            "metrics": build_metric_cards(snapshot, year_over_year, prior_year),
+            "insights": build_insights(snapshot, year_over_year, dataset, year, region, prior_year),
+            "region_summary": summarize_regions(dataset, year=year),
+            "top_locations": build_rankings(snapshot, ascending=False),
+            "bottom_locations": build_rankings(snapshot, ascending=True),
+            "map_chart": chart_to_html(build_coverage_map(snapshot, year=year, region=region)),
+            "leaders_chart": chart_to_html(build_top_locations_chart(snapshot, year=year, region=region)),
+            "trend_chart": chart_to_html(build_region_trends_chart(get_time_series(dataset), region=region)),
+            "change_chart": chart_to_html(
+                build_change_chart(
+                    year_over_year,
+                    year=year,
+                    region=region,
+                    prior_year=prior_year,
+                )
+            ),
+            "latest_period": get_latest_period(dataset),
+            "data_path": DATA_PATH.name,
+        }
 
-        # Convert PySpark DataFrame to Pandas
-        df_pandas = df_filtered.select("Period", "Location", "FactValueNumeric").toPandas()
+        return render_template("index.html", **context)
 
-        # Convert 'Period' column to datetime
-        df_pandas["Period"] = pd.to_datetime(df_pandas["Period"], format="%Y")
+    @app.route("/health")
+    def health() -> tuple[object, int]:
+        dataset = load_art_coverage_data()
+        return (
+            jsonify(
+                {
+                    "status": "ok",
+                    "records": int(len(dataset)),
+                    "latest_period": int(get_latest_period(dataset)),
+                }
+            ),
+            200,
+        )
 
-        # Compute average ART coverage per country
-        country_avg = df_pandas.groupby("Location")["FactValueNumeric"].mean()
+    return app
 
-        # Define a threshold for high ART coverage (e.g., above 50%)
-        high_prevalence_countries = country_avg[country_avg > 50].index.tolist()
 
-        # Filter the dataset for only high-prevalence countries
-        df_high_prevalence = df_pandas[df_pandas["Location"].isin(high_prevalence_countries)]
+app = create_app()
 
-        # Group by Year and Location for plotting
-        df_trend = df_high_prevalence.groupby(["Period", "Location"]).mean().reset_index()
-
-        # Plot ART Coverage Trends in High-Prevalence Countries
-        plt.figure(figsize=(12, 6))
-        sns.lineplot(data=df_trend, x="Period", y="FactValueNumeric", hue="Location", marker="o")
-        plt.xlabel("Year")
-        plt.ylabel("ART Coverage (%)")
-        plt.title("ART Coverage Trends in High-Prevalence Countries")
-        plt.legend(loc="upper left", bbox_to_anchor=(1, 1))
-        plt.xticks(rotation=45)
-        plt.grid()
-        plt.savefig('static/lineplot.png')
-        plt.close()
-
-        # Load world map from local directory
-        world = gpd.read_file("C:/Users/user/Downloads/OneDrive/Desktop/Pyspark/ne_110m_admin_0_countries.shp")
-
-        # Convert ART coverage data to Pandas
-        df_geo = df_filtered.select("Location", "FactValueNumeric").toPandas()
-
-        # Merge with world map using the correct column name
-        world = world.merge(df_geo, left_on="ADMIN", right_on="Location", how="left")
-
-        # Create a Folium Map
-        m = folium.Map(location=[0, 0], zoom_start=2)
-
-        # Add choropleth layer
-        folium.Choropleth(
-            geo_data=world,
-            name="choropleth",
-            data=world,
-            columns=["Location", "FactValueNumeric"],
-            key_on="feature.properties.ADMIN",
-            fill_color="YlGnBu",
-            fill_opacity=0.7,
-            line_opacity=0.2,
-            legend_name="ART Coverage (%)",
-        ).add_to(m)
-
-        # Save map
-        m.save('static/art_coverage_map.html')
-
-        return render_template('index.html')
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 5000))

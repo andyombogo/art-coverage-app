@@ -3,19 +3,219 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ART Coverage Dashboard</title>
+    <title>WHO ART Coverage Dashboard</title>
+    <meta
+        name="description"
+        content="Interactive WHO ART coverage dashboard for exploring regional performance, year-over-year change, and country-level coverage estimates."
+    >
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700&family=Source+Sans+3:wght@400;600;700&display=swap"
+        rel="stylesheet"
+    >
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script src="https://cdn.plot.ly/plotly-2.35.2.min.js"></script>
 </head>
 <body>
-    <h1>ART Coverage Dashboard</h1>
-    <h2>Top 15 Countries by ART Coverage</h2>
-    <img src="{{ url_for('static', filename='barplot.png') }}" alt="Bar Plot">
-    <h2>Distribution of ART Coverage</h2>
-    <img src="{{ url_for('static', filename='histplot.png') }}" alt="Histogram">
-    <h2>ART Coverage vs. Period (2015-2024)</h2>
-    <img src="{{ url_for('static', filename='scatterplot.png') }}" alt="Scatter Plot">
-    <h2>ART Coverage Trends in High-Prevalence Countries</h2>
-    <img src="{{ url_for('static', filename='lineplot.png') }}" alt="Line Plot">
-    <h2>ART Coverage Map</h2>
-    <iframe src="{{ url_for('static', filename='art_coverage_map.html') }}" width="100%" height="600"></iframe>
+    <div class="page-shell">
+        <header class="hero card">
+            <div class="hero-copy">
+                <p class="eyebrow">Global HIV response dashboard</p>
+                <h1>WHO ART Coverage Dashboard</h1>
+                <p class="hero-text">
+                    Explore country-level antiretroviral therapy coverage estimates across regions and years.
+                    The dashboard is tuned for portfolio presentation, fast cloud deployment, and policy-oriented storytelling.
+                </p>
+                <div class="hero-badges">
+                    <span>{{ dataset_summary.records }} records</span>
+                    <span>{{ dataset_summary.countries }} countries</span>
+                    <span>{{ dataset_summary.start_year }}-{{ dataset_summary.end_year }}</span>
+                    <span>Updated {{ dataset_summary.updated_on }}</span>
+                </div>
+            </div>
+            <div class="hero-panel">
+                <p class="panel-label">Current view</p>
+                <p class="panel-year">{{ selected_year }}</p>
+                <p class="panel-region">{{ selected_region }}</p>
+                <p class="panel-detail">Latest full-year average: {{ dataset_summary.latest_average }}%</p>
+            </div>
+        </header>
+
+        <section class="controls card">
+            <div>
+                <h2>Filter the dashboard</h2>
+                <p class="section-copy">
+                    Switch between the full global view and WHO regions to compare coverage levels, movement over time, and uncertainty intervals.
+                </p>
+            </div>
+            <form method="get" class="filter-form">
+                <label>
+                    <span>Year</span>
+                    <select name="year">
+                        {% for year in filter_options.years|reverse %}
+                            <option value="{{ year }}" {% if year == selected_year %}selected{% endif %}>{{ year }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <label>
+                    <span>Region</span>
+                    <select name="region">
+                        {% for region in filter_options.regions %}
+                            <option value="{{ region }}" {% if region == selected_region %}selected{% endif %}>{{ region }}</option>
+                        {% endfor %}
+                    </select>
+                </label>
+                <button type="submit">Refresh view</button>
+            </form>
+        </section>
+
+        <section class="metric-grid">
+            {% for metric in metrics %}
+                <article class="metric-card card">
+                    <p class="metric-label">{{ metric.label }}</p>
+                    <p class="metric-value">{{ metric.value }}</p>
+                    <p class="metric-detail">{{ metric.detail }}</p>
+                </article>
+            {% endfor %}
+        </section>
+
+        <section class="story-grid">
+            <article class="card narrative-card">
+                <h2>What stands out</h2>
+                <ul class="insight-list">
+                    {% for insight in insights %}
+                        <li>{{ insight }}</li>
+                    {% endfor %}
+                </ul>
+            </article>
+            <article class="card narrative-card">
+                <h2>Regional snapshot in {{ selected_year }}</h2>
+                <div class="region-strip">
+                    {% for summary in region_summary %}
+                        <div class="region-pill">
+                            <p class="region-name">{{ summary.region }}</p>
+                            <p class="region-average">{{ summary.average }}</p>
+                            <p class="region-countries">{{ summary.countries }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+            </article>
+        </section>
+
+        <section class="chart-grid">
+            <article class="card chart-card chart-card-wide">
+                <div class="card-heading">
+                    <h2>Coverage map</h2>
+                    <p>Country estimates for the selected year and region.</p>
+                </div>
+                <div class="chart-frame">{{ map_chart|safe }}</div>
+            </article>
+            <article class="card chart-card">
+                <div class="card-heading">
+                    <h2>Leading countries</h2>
+                    <p>Highest ART coverage values in the current slice.</p>
+                </div>
+                <div class="chart-frame">{{ leaders_chart|safe }}</div>
+            </article>
+            <article class="card chart-card chart-card-wide">
+                <div class="card-heading">
+                    <h2>Regional trends over time</h2>
+                    <p>Track average coverage since {{ dataset_summary.start_year }}.</p>
+                </div>
+                <div class="chart-frame">{{ trend_chart|safe }}</div>
+            </article>
+            <article class="card chart-card">
+                <div class="card-heading">
+                    <h2>Year-over-year movers</h2>
+                    <p>Largest gains and declines with comparable country records.</p>
+                </div>
+                <div class="chart-frame">{{ change_chart|safe }}</div>
+            </article>
+        </section>
+
+        <section class="table-grid">
+            <article class="card table-card">
+                <div class="card-heading">
+                    <h2>Top performers</h2>
+                    <p>Countries with the strongest reported coverage.</p>
+                </div>
+                <div class="table-shell">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Region</th>
+                                <th>Coverage</th>
+                                <th>Interval</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in top_locations %}
+                                <tr>
+                                    <td>{{ row.location }}</td>
+                                    <td>{{ row.region }}</td>
+                                    <td>{{ row.coverage }}</td>
+                                    <td>{{ row.interval }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+            <article class="card table-card">
+                <div class="card-heading">
+                    <h2>Countries needing attention</h2>
+                    <p>Lower-coverage geographies in the current selection.</p>
+                </div>
+                <div class="table-shell">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Country</th>
+                                <th>Region</th>
+                                <th>Coverage</th>
+                                <th>Interval</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for row in bottom_locations %}
+                                <tr>
+                                    <td>{{ row.location }}</td>
+                                    <td>{{ row.region }}</td>
+                                    <td>{{ row.coverage }}</td>
+                                    <td>{{ row.interval }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </article>
+        </section>
+
+        <section class="methodology card">
+            <div>
+                <h2>Methodology</h2>
+                <p class="section-copy">
+                    This app uses the checked-in WHO dataset at <code>{{ data_path }}</code>. When WHO provides a low and high interval but no central estimate,
+                    the dashboard uses the midpoint for comparison while still showing the original interval in tables and map hovers.
+                </p>
+            </div>
+            <div class="methodology-meta">
+                <div>
+                    <p class="meta-label">Data source</p>
+                    <p>{{ dataset_summary.data_source }}</p>
+                </div>
+                <div>
+                    <p class="meta-label">Latest period</p>
+                    <p>{{ latest_period }}</p>
+                </div>
+                <div>
+                    <p class="meta-label">Midpoint estimates used</p>
+                    <p>{{ dataset_summary.midpoint_estimates }}</p>
+                </div>
+            </div>
+        </section>
+    </div>
 </body>
 </html>

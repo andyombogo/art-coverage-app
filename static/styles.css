@@ -1,0 +1,390 @@
+:root {
+    --bg: #edf4f3;
+    --bg-warm: #f8f2e8;
+    --panel: rgba(255, 255, 255, 0.88);
+    --panel-strong: rgba(255, 255, 255, 0.96);
+    --border: rgba(18, 56, 74, 0.12);
+    --shadow: 0 18px 42px rgba(18, 56, 74, 0.08);
+    --ink: #12384a;
+    --muted: #5f7280;
+    --accent: #0b6e69;
+    --accent-deep: #0b3558;
+    --highlight: #d6e9e4;
+    --table-stripe: rgba(214, 233, 228, 0.24);
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: var(--ink);
+    font-family: "Source Sans 3", Arial, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(98, 182, 203, 0.22), transparent 32%),
+        radial-gradient(circle at top right, rgba(241, 204, 146, 0.28), transparent 30%),
+        linear-gradient(180deg, var(--bg) 0%, #f8fbfb 100%);
+}
+
+.page-shell {
+    width: min(1280px, calc(100% - 2rem));
+    margin: 0 auto;
+    padding: 1.5rem 0 3rem;
+}
+
+.card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 24px;
+    box-shadow: var(--shadow);
+    backdrop-filter: blur(10px);
+}
+
+.hero {
+    display: grid;
+    grid-template-columns: minmax(0, 1.7fr) minmax(260px, 0.9fr);
+    gap: 1.5rem;
+    padding: 2rem;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.92), rgba(247, 249, 248, 0.82)),
+        linear-gradient(120deg, rgba(11, 110, 105, 0.08), rgba(11, 53, 88, 0.08));
+}
+
+.eyebrow,
+.panel-label,
+.metric-label,
+.meta-label {
+    margin: 0 0 0.4rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--muted);
+    font-weight: 700;
+}
+
+h1,
+h2 {
+    margin: 0;
+    font-family: "Merriweather", Georgia, serif;
+    letter-spacing: -0.02em;
+}
+
+h1 {
+    font-size: clamp(2.1rem, 4vw, 3.35rem);
+    line-height: 1.05;
+}
+
+h2 {
+    font-size: clamp(1.35rem, 2vw, 1.8rem);
+}
+
+.hero-text,
+.section-copy,
+.metric-detail,
+.card-heading p,
+.methodology p,
+.panel-detail,
+.region-countries {
+    color: var(--muted);
+}
+
+.hero-text {
+    max-width: 68ch;
+    font-size: 1.15rem;
+    line-height: 1.6;
+    margin: 1rem 0 1.2rem;
+}
+
+.hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+}
+
+.hero-badges span,
+.region-pill {
+    background: rgba(214, 233, 228, 0.55);
+    border: 1px solid rgba(11, 110, 105, 0.08);
+    border-radius: 999px;
+    padding: 0.65rem 1rem;
+    font-weight: 600;
+}
+
+.hero-panel {
+    align-self: stretch;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 1.5rem;
+    border-radius: 20px;
+    background:
+        linear-gradient(180deg, rgba(12, 110, 105, 0.08), rgba(11, 53, 88, 0.03)),
+        var(--panel-strong);
+}
+
+.panel-year {
+    margin: 0;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--accent-deep);
+}
+
+.panel-region {
+    margin: 0.1rem 0 0.6rem;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.controls,
+.methodology {
+    margin-top: 1.35rem;
+    padding: 1.5rem;
+}
+
+.controls {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+    gap: 1.5rem;
+    align-items: end;
+}
+
+.filter-form {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: end;
+}
+
+.filter-form label {
+    display: flex;
+    flex-direction: column;
+    gap: 0.45rem;
+    font-weight: 600;
+}
+
+.filter-form span {
+    color: var(--muted);
+}
+
+select,
+button {
+    width: 100%;
+    border-radius: 14px;
+    border: 1px solid rgba(18, 56, 74, 0.15);
+    padding: 0.85rem 0.95rem;
+    font: inherit;
+}
+
+select {
+    background: rgba(255, 255, 255, 0.95);
+    color: var(--ink);
+}
+
+button {
+    background: linear-gradient(135deg, var(--accent), #127b88);
+    color: white;
+    font-weight: 700;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 12px 28px rgba(11, 110, 105, 0.18);
+}
+
+.metric-grid,
+.story-grid,
+.table-grid {
+    display: grid;
+    gap: 1.15rem;
+    margin-top: 1.35rem;
+}
+
+.metric-grid {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.metric-card,
+.narrative-card,
+.table-card {
+    padding: 1.35rem;
+}
+
+.metric-value {
+    margin: 0 0 0.4rem;
+    font-size: clamp(1.9rem, 3vw, 2.6rem);
+    font-weight: 700;
+    color: var(--accent-deep);
+}
+
+.story-grid {
+    grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+}
+
+.insight-list {
+    margin: 1rem 0 0;
+    padding-left: 1.1rem;
+    color: var(--ink);
+    line-height: 1.65;
+}
+
+.region-strip {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 0.8rem;
+    margin-top: 1rem;
+}
+
+.region-pill {
+    border-radius: 18px;
+    padding: 0.95rem;
+}
+
+.region-name,
+.region-average {
+    margin: 0;
+}
+
+.region-name {
+    font-weight: 700;
+}
+
+.region-average {
+    font-size: 1.4rem;
+    color: var(--accent-deep);
+    margin-top: 0.3rem;
+}
+
+.chart-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.15rem;
+    margin-top: 1.35rem;
+}
+
+.chart-card {
+    padding: 1.25rem;
+    overflow: hidden;
+}
+
+.chart-card-wide {
+    grid-column: span 2;
+}
+
+.card-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1rem;
+    margin-bottom: 0.9rem;
+}
+
+.card-heading p {
+    margin: 0;
+    max-width: 30rem;
+}
+
+.chart-frame {
+    min-height: 360px;
+}
+
+.chart-frame .plotly-graph-div {
+    width: 100%;
+}
+
+.table-shell {
+    overflow-x: auto;
+    margin-top: 1rem;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.98rem;
+}
+
+th,
+td {
+    padding: 0.8rem 0.65rem;
+    text-align: left;
+    border-bottom: 1px solid rgba(18, 56, 74, 0.08);
+}
+
+thead th {
+    color: var(--muted);
+    font-size: 0.84rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+tbody tr:nth-child(even) {
+    background: var(--table-stripe);
+}
+
+.methodology {
+    display: grid;
+    grid-template-columns: minmax(0, 1.5fr) minmax(260px, 0.9fr);
+    gap: 1.5rem;
+}
+
+.methodology-meta {
+    display: grid;
+    gap: 1rem;
+    align-content: start;
+    padding: 1rem;
+    border-radius: 18px;
+    background: rgba(214, 233, 228, 0.34);
+}
+
+code {
+    font-family: "Consolas", "Courier New", monospace;
+    color: var(--accent-deep);
+}
+
+@media (max-width: 1024px) {
+    .hero,
+    .controls,
+    .story-grid,
+    .methodology,
+    .metric-grid,
+    .chart-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .chart-card-wide {
+        grid-column: auto;
+    }
+
+    .filter-form {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 640px) {
+    .page-shell {
+        width: min(100% - 1rem, 100%);
+        padding-top: 0.75rem;
+    }
+
+    .hero,
+    .controls,
+    .metric-card,
+    .narrative-card,
+    .chart-card,
+    .table-card,
+    .methodology {
+        border-radius: 18px;
+    }
+
+    .hero {
+        padding: 1.35rem;
+    }
+
+    .hero-text {
+        font-size: 1rem;
+    }
+
+    .card-heading {
+        flex-direction: column;
+        align-items: start;
+    }
+}
