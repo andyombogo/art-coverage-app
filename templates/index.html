@@ -8,6 +8,15 @@
         name="description"
         content="Interactive WHO ART coverage dashboard for exploring regional performance, year-over-year change, and country-level coverage estimates."
     >
+    <meta name="theme-color" content="#0b3558">
+    <link rel="canonical" href="{{ current_view_url }}">
+    <meta property="og:title" content="WHO ART Coverage Dashboard">
+    <meta property="og:description" content="Interactive WHO ART coverage dashboard for regional trends, country comparisons, and filtered exports.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ current_view_url }}">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="WHO ART Coverage Dashboard">
+    <meta name="twitter:description" content="Explore WHO ART coverage estimates by country, region, and year.">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link
@@ -220,6 +229,20 @@
                 </div>
             </div>
         </section>
+
+        <footer class="footer card">
+            <div>
+                <p class="eyebrow">Live project</p>
+                <h2>Built for GitHub and Render</h2>
+                <p class="section-copy">
+                    This deployed dashboard is live on Render and backed by the public GitHub repo, with downloadable views and a lightweight JSON summary for sharing.
+                </p>
+            </div>
+            <div class="footer-links">
+                <a class="button-link" href="{{ live_app_url }}" target="_blank" rel="noreferrer">Open live app</a>
+                <a class="button-link button-link-secondary" href="{{ repo_url }}" target="_blank" rel="noreferrer">View source</a>
+            </div>
+        </footer>
     </div>
 </body>
 </html>

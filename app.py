@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import io
 import os
+from urllib.parse import urlencode
 
 from flask import Flask, Response, jsonify, render_template, request
 
@@ -27,6 +28,9 @@ from dashboard.visuals import (
     build_top_locations_chart,
 )
 
+LIVE_APP_URL = os.environ.get("LIVE_APP_URL", "https://art-coverage-dashboard.onrender.com")
+REPO_URL = "https://github.com/andyombogo/art-coverage-app"
+
 
 def create_app() -> Flask:
     app = Flask(__name__)
@@ -51,6 +55,7 @@ def create_app() -> Flask:
         snapshot = build_snapshot(dataset, year=year, region=region)
         prior_year = filter_options["previous_year_lookup"].get(year)
         year_over_year = build_year_over_year_changes(dataset, year=year, region=region)
+        current_view_query = urlencode({"year": year, "region": region})
 
         context = {
             "dataset_summary": describe_dataset(dataset),
@@ -75,6 +80,9 @@ def create_app() -> Flask:
             ),
             "latest_period": get_latest_period(dataset),
             "data_path": DATA_PATH.name,
+            "live_app_url": LIVE_APP_URL,
+            "repo_url": REPO_URL,
+            "current_view_url": f"{LIVE_APP_URL}/?{current_view_query}",
         }
 
         return render_template("index.html", **context)

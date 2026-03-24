@@ -166,7 +166,8 @@ h2 {
 }
 
 .controls,
-.methodology {
+.methodology,
+.footer {
     margin-top: 1.35rem;
     padding: 1.5rem;
 }
@@ -354,6 +355,20 @@ tbody tr:nth-child(even) {
     gap: 1.5rem;
 }
 
+.footer {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.8fr);
+    gap: 1.5rem;
+    align-items: center;
+}
+
+.footer-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.75rem;
+    justify-content: flex-end;
+}
+
 .methodology-meta {
     display: grid;
     gap: 1rem;
@@ -373,6 +388,7 @@ code {
     .controls,
     .story-grid,
     .methodology,
+    .footer,
     .metric-grid,
     .chart-grid {
         grid-template-columns: 1fr;
@@ -413,6 +429,10 @@ code {
 
     .hero-actions {
         flex-direction: column;
+    }
+
+    .footer-links {
+        justify-content: stretch;
     }
 
     .card-heading {
