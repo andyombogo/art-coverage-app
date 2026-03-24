@@ -1,5 +1,11 @@
 # WHO ART Coverage Dashboard
 
+<p align="center">
+  <a href="https://art-coverage-dashboard.onrender.com">
+    <img src="docs/assets/github-hero-banner.svg" alt="WHO ART Coverage Dashboard banner">
+  </a>
+</p>
+
 [![Live on Render](https://img.shields.io/badge/Live%20Demo-Render-0b6e69?style=for-the-badge)](https://art-coverage-dashboard.onrender.com)
 [![CI](https://img.shields.io/github/actions/workflow/status/andyombogo/art-coverage-app/python-app.yml?branch=master&style=for-the-badge&label=CI)](https://github.com/andyombogo/art-coverage-app/actions/workflows/python-app.yml)
 
@@ -11,6 +17,10 @@ Interactive Flask dashboard for exploring WHO antiretroviral therapy (ART) cover
 | --- | --- |
 | [![Dashboard hero preview](docs/assets/overview-preview.svg)](https://art-coverage-dashboard.onrender.com/#dashboard-overview) | [![Africa 2023 filter and KPI preview](docs/assets/filter-metrics-preview.svg)](https://art-coverage-dashboard.onrender.com/?year=2023&region=Africa#filters-and-kpis) |
 | Live entry state with quick export actions and deployment-ready framing. | Focused KPI story for a real region/year slice with summary cards and regional context. |
+
+[![Regional trends preview](docs/assets/regional-trends-preview.svg)](https://art-coverage-dashboard.onrender.com/#regional-trends)
+
+Regional trend storytelling that makes the dashboard feel analytical, not just decorative.
 
 ## Live demo
 
@@ -92,6 +102,7 @@ The checked-in source file spans 2000 through 2023 and contains 4,656 WHO rows. 
 - Add `https://art-coverage-dashboard.onrender.com` to the GitHub repo website field.
 - Capture screenshots from `#coverage-map`, `#regional-trends`, and `#top-performers`.
 - Pin this repo on your GitHub profile once the live link is visible.
+- Use `docs/portfolio-copy.md` for a ready-to-paste repo description and pin blurb.
 
 
 

@@ -1,0 +1,46 @@
+<svg width="1280" height="360" viewBox="0 0 1280 360" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="360" rx="28" fill="#EDF4F3"/>
+  <rect x="0.5" y="0.5" width="1279" height="359" rx="27.5" fill="url(#bg)" stroke="#D7E6E3"/>
+  <circle cx="1123" cy="71" r="182" fill="url(#halo)" fill-opacity="0.68"/>
+  <circle cx="177" cy="307" r="170" fill="url(#haloTwo)" fill-opacity="0.5"/>
+
+  <text x="44" y="55" fill="#6A7C88" font-size="13" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">PUBLIC HEALTH ANALYTICS • FLASK • PLOTLY • RENDER</text>
+  <text x="44" y="122" fill="#163C53" font-size="58" font-family="Georgia, serif" font-weight="700">WHO ART Coverage Dashboard</text>
+  <text x="44" y="172" fill="#5F7382" font-size="22" font-family="Arial, sans-serif">Interactive HIV treatment coverage dashboard with live filtering, exportable views,</text>
+  <text x="44" y="204" fill="#5F7382" font-size="22" font-family="Arial, sans-serif">regional trend analysis, and deployment-ready portfolio polish.</text>
+
+  <g>
+    <rect x="44" y="240" width="170" height="46" rx="16" fill="#0C7B81"/>
+    <text x="76" y="269" fill="white" font-size="18" font-family="Arial, sans-serif" font-weight="700">Live on Render</text>
+    <rect x="229" y="240" width="238" height="46" rx="16" fill="white" stroke="#D1DFE0"/>
+    <text x="255" y="269" fill="#173E54" font-size="18" font-family="Arial, sans-serif" font-weight="700">GitHub Actions tested</text>
+  </g>
+
+  <g>
+    <rect x="825" y="42" width="395" height="276" rx="26" fill="rgba(255,255,255,0.72)" stroke="#D9E4E3"/>
+    <text x="853" y="80" fill="#6A7C88" font-size="12" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">LIVE PROJECT SNAPSHOT</text>
+    <text x="853" y="134" fill="#163C53" font-size="20" font-family="Arial, sans-serif" font-weight="700">Country-level WHO ART coverage exploration</text>
+    <text x="853" y="173" fill="#5F7382" font-size="17" font-family="Arial, sans-serif">• filter by region and year</text>
+    <text x="853" y="203" fill="#5F7382" font-size="17" font-family="Arial, sans-serif">• compare top and lower-performing countries</text>
+    <text x="853" y="233" fill="#5F7382" font-size="17" font-family="Arial, sans-serif">• export the current slice as CSV</text>
+    <text x="853" y="263" fill="#5F7382" font-size="17" font-family="Arial, sans-serif">• open JSON summaries for lightweight sharing</text>
+
+    <rect x="853" y="282" width="221" height="18" rx="9" fill="#DCEAE7"/>
+    <text x="869" y="295" fill="#21465D" font-size="13" font-family="Arial, sans-serif" font-weight="700">https://art-coverage-dashboard.onrender.com</text>
+  </g>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1280" y2="360" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F8FBFA"/>
+      <stop offset="1" stop-color="#F2F6F5"/>
+    </linearGradient>
+    <radialGradient id="halo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(1123 71) rotate(90) scale(182)">
+      <stop stop-color="#E3E1B8"/>
+      <stop offset="1" stop-color="#E3E1B8" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="haloTwo" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(177 307) rotate(90) scale(170)">
+      <stop stop-color="#CFE4EA"/>
+      <stop offset="1" stop-color="#CFE4EA" stop-opacity="0"/>
+    </radialGradient>
+  </defs>
+</svg>

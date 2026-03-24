@@ -1,0 +1,31 @@
+<svg width="1280" height="430" viewBox="0 0 1280 430" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="430" rx="28" fill="#EFF5F4"/>
+  <rect x="0.5" y="0.5" width="1279" height="429" rx="27.5" fill="white" stroke="#D8E5E3"/>
+  <text x="28" y="58" fill="#163C53" font-size="34" font-family="Georgia, serif" font-weight="700">Regional trends over time</text>
+  <text x="28" y="90" fill="#617687" font-size="18" font-family="Arial, sans-serif">A quick view of how ART coverage has moved across WHO regions from 2000 to 2023.</text>
+
+  <g opacity="0.85">
+    <rect x="28" y="122" width="1224" height="260" rx="20" fill="#F6FAF9" stroke="#DFE8E7"/>
+    <line x1="94" y1="152" x2="94" y2="344" stroke="#BFD1D0"/>
+    <line x1="94" y1="344" x2="1190" y2="344" stroke="#BFD1D0"/>
+    <line x1="94" y1="306" x2="1190" y2="306" stroke="#E3ECEB"/>
+    <line x1="94" y1="267" x2="1190" y2="267" stroke="#E3ECEB"/>
+    <line x1="94" y1="229" x2="1190" y2="229" stroke="#E3ECEB"/>
+    <line x1="94" y1="191" x2="1190" y2="191" stroke="#E3ECEB"/>
+
+    <polyline points="110,292 205,284 300,271 395,255 490,236 585,214 680,198 775,178 870,162 965,150 1060,141 1155,132" fill="none" stroke="#0C7B81" stroke-width="4"/>
+    <polyline points="110,310 205,304 300,294 395,288 490,280 585,269 680,257 775,245 870,232 965,224 1060,215 1155,205" fill="none" stroke="#315C8B" stroke-width="4"/>
+    <polyline points="110,326 205,321 300,317 395,312 490,303 585,298 680,294 775,289 870,281 965,274 1060,267 1155,258" fill="none" stroke="#B07253" stroke-width="4"/>
+
+    <circle cx="1155" cy="132" r="5.5" fill="#0C7B81"/>
+    <circle cx="1155" cy="205" r="5.5" fill="#315C8B"/>
+    <circle cx="1155" cy="258" r="5.5" fill="#B07253"/>
+  </g>
+
+  <g>
+    <rect x="982" y="40" width="244" height="76" rx="18" fill="#EEF5F4" stroke="#D6E4E2"/>
+    <text x="1002" y="68" fill="#163C53" font-size="17" font-family="Arial, sans-serif" font-weight="700">Trend highlights</text>
+    <text x="1002" y="92" fill="#617687" font-size="14" font-family="Arial, sans-serif">Africa, Europe, and the Americas are</text>
+    <text x="1002" y="112" fill="#617687" font-size="14" font-family="Arial, sans-serif">easy to compare at a glance.</text>
+  </g>
+</svg>
