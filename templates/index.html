@@ -28,7 +28,7 @@
 </head>
 <body>
     <div class="page-shell">
-        <header class="hero card">
+        <header class="hero card" id="dashboard-overview">
             <div class="hero-copy">
                 <p class="eyebrow">Global HIV response dashboard</p>
                 <h1>WHO ART Coverage Dashboard</h1>
@@ -55,7 +55,7 @@
             </div>
         </header>
 
-        <section class="controls card">
+        <section class="controls card" id="filters-and-kpis">
             <div>
                 <h2>Filter the dashboard</h2>
                 <p class="section-copy">
@@ -94,7 +94,7 @@
         </section>
 
         <section class="story-grid">
-            <article class="card narrative-card">
+            <article class="card narrative-card" id="what-stands-out">
                 <h2>What stands out</h2>
                 <ul class="insight-list">
                     {% for insight in insights %}
@@ -102,7 +102,7 @@
                     {% endfor %}
                 </ul>
             </article>
-            <article class="card narrative-card">
+            <article class="card narrative-card" id="regional-snapshot">
                 <h2>Regional snapshot in {{ selected_year }}</h2>
                 <div class="region-strip">
                     {% for summary in region_summary %}

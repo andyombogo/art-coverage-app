@@ -5,6 +5,13 @@
 
 Interactive Flask dashboard for exploring WHO antiretroviral therapy (ART) coverage estimates by country, region, and year.
 
+## Preview
+
+| Overview | Africa 2023 view |
+| --- | --- |
+| [![Dashboard hero preview](docs/assets/overview-preview.svg)](https://art-coverage-dashboard.onrender.com/#dashboard-overview) | [![Africa 2023 filter and KPI preview](docs/assets/filter-metrics-preview.svg)](https://art-coverage-dashboard.onrender.com/?year=2023&region=Africa#filters-and-kpis) |
+| Live entry state with quick export actions and deployment-ready framing. | Focused KPI story for a real region/year slice with summary cards and regional context. |
+
 ## Live demo
 
 - Dashboard: https://art-coverage-dashboard.onrender.com
@@ -18,6 +25,12 @@ Interactive Flask dashboard for exploring WHO antiretroviral therapy (ART) cover
 - Render-ready Blueprint configuration with CI-gated deploys.
 - Downloadable filtered CSV views and a lightweight summary API.
 - Cleaner repository structure after removing the old generated map artifacts and shapefiles.
+
+## Best way to explore
+
+1. Start with the live dashboard overview to understand the scope and current data freshness.
+2. Switch to `2023` and `Africa` to see the strongest KPI story, which matches the highlighted screenshots above.
+3. Use the CSV export and JSON summary links when you want a shareable slice of the current view.
 
 ## Dashboard features
 

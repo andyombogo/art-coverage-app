@@ -1,0 +1,106 @@
+<svg width="1278" height="825" viewBox="0 0 1278 825" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1278" height="825" rx="30" fill="#EAF3F2"/>
+  <rect x="0.5" y="0.5" width="1277" height="824" rx="29.5" fill="url(#bg)" stroke="#D8E6E4"/>
+
+  <rect x="1" y="12" width="1276" height="145" rx="28" fill="white" stroke="#D9E3E3"/>
+  <text x="26" y="61" fill="#163C53" font-size="29" font-family="Georgia, serif" font-weight="700">Filter the dashboard</text>
+  <text x="26" y="91" fill="#617687" font-size="17" font-family="Arial, sans-serif">Switch between the full global view and WHO regions to compare coverage levels, movement over time, and</text>
+  <text x="26" y="114" fill="#617687" font-size="17" font-family="Arial, sans-serif">uncertainty intervals.</text>
+
+  <text x="772" y="69" fill="#627786" font-size="14" font-family="Arial, sans-serif" font-weight="700">Year</text>
+  <rect x="772" y="82" width="152" height="52" rx="15" fill="white" stroke="#CAD7DB"/>
+  <text x="792" y="114" fill="#163C53" font-size="17" font-family="Arial, sans-serif" font-weight="700">2023</text>
+  <text x="906" y="114" fill="#163C53" font-size="20" font-family="Arial, sans-serif">⌄</text>
+
+  <text x="939" y="69" fill="#627786" font-size="14" font-family="Arial, sans-serif" font-weight="700">Region</text>
+  <rect x="939" y="82" width="150" height="52" rx="15" fill="white" stroke="#CAD7DB"/>
+  <text x="959" y="114" fill="#163C53" font-size="17" font-family="Arial, sans-serif" font-weight="700">Africa</text>
+  <text x="1071" y="114" fill="#163C53" font-size="20" font-family="Arial, sans-serif">⌄</text>
+
+  <rect x="1104" y="82" width="152" height="52" rx="15" fill="#0C7B81"/>
+  <text x="1133" y="114" fill="white" font-size="17" font-family="Arial, sans-serif" font-weight="700">Refresh view</text>
+
+  <g>
+    <rect x="0.5" y="182.5" width="305" height="203" rx="28" fill="white" stroke="#D9E3E3"/>
+    <text x="22" y="218" fill="#6B7E8A" font-size="12" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">COUNTRIES IN VIEW</text>
+    <text x="22" y="270" fill="#163C53" font-size="38" font-family="Arial, sans-serif" font-weight="800">41</text>
+    <text x="22" y="320" fill="#617687" font-size="16" font-family="Arial, sans-serif">WHO country estimates in the selected</text>
+    <text x="22" y="343" fill="#617687" font-size="16" font-family="Arial, sans-serif">slice</text>
+
+    <rect x="325.5" y="182.5" width="304" height="203" rx="28" fill="white" stroke="#D9E3E3"/>
+    <text x="347" y="218" fill="#6B7E8A" font-size="12" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">AVERAGE COVERAGE</text>
+    <text x="347" y="270" fill="#163C53" font-size="38" font-family="Arial, sans-serif" font-weight="800">72.5%</text>
+    <text x="347" y="320" fill="#617687" font-size="16" font-family="Arial, sans-serif">Mean ART coverage for the selected</text>
+    <text x="347" y="343" fill="#617687" font-size="16" font-family="Arial, sans-serif">year</text>
+
+    <rect x="650.5" y="182.5" width="304" height="203" rx="28" fill="white" stroke="#D9E3E3"/>
+    <text x="672" y="218" fill="#6B7E8A" font-size="12" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">MEDIAN COVERAGE</text>
+    <text x="672" y="270" fill="#163C53" font-size="38" font-family="Arial, sans-serif" font-weight="800">77.0%</text>
+    <text x="672" y="320" fill="#617687" font-size="16" font-family="Arial, sans-serif">Middle country after sorting by</text>
+    <text x="672" y="343" fill="#617687" font-size="16" font-family="Arial, sans-serif">coverage</text>
+
+    <rect x="975.5" y="182.5" width="302" height="203" rx="28" fill="white" stroke="#D9E3E3"/>
+    <text x="997" y="218" fill="#6B7E8A" font-size="12" font-family="Arial, sans-serif" font-weight="700" letter-spacing="2">AVG CHANGE VS 2022</text>
+    <text x="997" y="268" fill="#163C53" font-size="36" font-family="Arial, sans-serif" font-weight="800">+3.5 pts</text>
+    <text x="997" y="320" fill="#617687" font-size="16" font-family="Arial, sans-serif">8 countries are at or above 90%</text>
+  </g>
+
+  <rect x="1" y="409" width="660" height="415" rx="28" fill="white" stroke="#D9E3E3"/>
+  <text x="22" y="458" fill="#163C53" font-size="31" font-family="Georgia, serif" font-weight="700">What stands out</text>
+  <circle cx="27" cy="496" r="3.5" fill="#163C53"/>
+  <text x="40" y="502" fill="#244A61" font-size="16" font-family="Arial, sans-serif">Rwanda sets the pace in Africa at 96.0% in 2023, and the regional mean sits at 72.5%.</text>
+  <circle cx="27" cy="522" r="3.5" fill="#163C53"/>
+  <text x="40" y="528" fill="#244A61" font-size="16" font-family="Arial, sans-serif">The selected region spans from 22.0% to 96.0%, with a median country at 77.0%.</text>
+  <circle cx="27" cy="548" r="3.5" fill="#163C53"/>
+  <text x="40" y="554" fill="#244A61" font-size="16" font-family="Arial, sans-serif">South Sudan shows the largest comparable gain versus 2022: +10.0 percentage points.</text>
+
+  <rect x="681" y="409" width="596" height="415" rx="28" fill="white" stroke="#D9E3E3"/>
+  <text x="702" y="458" fill="#163C53" font-size="31" font-family="Georgia, serif" font-weight="700">Regional snapshot in 2023</text>
+
+  <g font-family="Arial, sans-serif">
+    <g>
+      <rect x="702" y="485" width="177" height="143" rx="18" fill="#E0ECE8" stroke="#CBDCD7"/>
+      <text x="719" y="516" fill="#21475D" font-size="17" font-weight="700">Africa</text>
+      <text x="719" y="550" fill="#173E54" font-size="20" font-weight="800">72.5%</text>
+      <text x="719" y="589" fill="#617687" font-size="16" font-weight="700">41 countries</text>
+    </g>
+    <g>
+      <rect x="891" y="485" width="177" height="143" rx="18" fill="#E0ECE8" stroke="#CBDCD7"/>
+      <text x="908" y="516" fill="#21475D" font-size="17" font-weight="700">Europe</text>
+      <text x="908" y="550" fill="#173E54" font-size="20" font-weight="800">69.8%</text>
+      <text x="908" y="589" fill="#617687" font-size="16" font-weight="700">25 countries</text>
+    </g>
+    <g>
+      <rect x="1080" y="485" width="178" height="143" rx="18" fill="#E0ECE8" stroke="#CBDCD7"/>
+      <text x="1097" y="516" fill="#21475D" font-size="17" font-weight="700">Americas</text>
+      <text x="1097" y="550" fill="#173E54" font-size="20" font-weight="800">67.2%</text>
+      <text x="1097" y="589" fill="#617687" font-size="16" font-weight="700">25 countries</text>
+    </g>
+    <g>
+      <rect x="702" y="643" width="177" height="165" rx="18" fill="#E0ECE8" stroke="#CBDCD7"/>
+      <text x="719" y="675" fill="#21475D" font-size="17" font-weight="700">South-East Asia</text>
+      <text x="719" y="709" fill="#173E54" font-size="20" font-weight="800">64.6%</text>
+      <text x="719" y="749" fill="#617687" font-size="16" font-weight="700">9 countries</text>
+    </g>
+    <g>
+      <rect x="891" y="643" width="177" height="165" rx="18" fill="#E0ECE8" stroke="#CBDCD7"/>
+      <text x="908" y="675" fill="#21475D" font-size="17" font-weight="700">Western Pacific</text>
+      <text x="908" y="709" fill="#173E54" font-size="20" font-weight="800">62.8%</text>
+      <text x="908" y="749" fill="#617687" font-size="16" font-weight="700">10 countries</text>
+    </g>
+    <g>
+      <rect x="1080" y="643" width="178" height="165" rx="18" fill="#E0ECE8" stroke="#CBDCD7"/>
+      <text x="1097" y="675" fill="#21475D" font-size="17" font-weight="700">Eastern</text>
+      <text x="1097" y="701" fill="#21475D" font-size="17" font-weight="700">Mediterranean</text>
+      <text x="1097" y="729" fill="#173E54" font-size="20" font-weight="800">49.4%</text>
+      <text x="1097" y="772" fill="#617687" font-size="16" font-weight="700">19 countries</text>
+    </g>
+  </g>
+
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1278" y2="825" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#F6FBFA"/>
+      <stop offset="1" stop-color="#F1F6F5"/>
+    </linearGradient>
+  </defs>
+</svg>
